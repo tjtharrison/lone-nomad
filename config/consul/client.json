@@ -1,0 +1,12 @@
+{
+    "server": false,
+    "datacenter": "dc1",
+    "data_dir": "/data/consul",
+    "log_level": "INFO",
+    "client_addr": "0.0.0.0",
+    "ui_config": {
+        "enabled": true
+    },
+    "encrypt": "X4SYOinf2pTAcAHRhpj7dA==",
+    "start_join": ["consul-server1", "consul-server2", "consul-server3"]
+}

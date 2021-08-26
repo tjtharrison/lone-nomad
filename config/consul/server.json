@@ -1,0 +1,9 @@
+{
+    "bootstrap": true,
+    "server": true,
+    "datacenter": "dc1",
+    "data_dir": "/data/consul",
+    "encrypt": "X4SYOinf2pTAcAHRhpj7dA==",
+    "log_level": "INFO",
+    "start_join": ["consul-server1", "consul-server2", "consul-server3"]
+}

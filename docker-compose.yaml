@@ -1,0 +1,95 @@
+version: '3.7'
+services: 
+  consul-server1: 
+    build:
+      dockerfile: Dockerfile-consul
+      context: .
+    image: consul
+    volumes:
+      # - './data/consul/server1:/data/consul'
+      - './config/consul/server.json:/etc/consul.d/consul.json'
+    command: 'consul agent --config-dir /etc/consul.d/'
+    container_name: 'consul-server1'
+    privileged: true
+  consul-server2: 
+    build:
+      dockerfile: Dockerfile-consul
+      context: .
+    image: consul
+    volumes:
+      # - './data/consul/server2:/data/consul'
+      - './config/consul/server.json:/etc/consul.d/consul.json'
+    command: 'consul agent --config-dir /etc/consul.d/'
+    container_name: 'consul-server2'
+    privileged: true
+  consul-server3: 
+    build:
+      dockerfile: Dockerfile-consul
+      context: .
+    image: consul
+    volumes:
+      # - './data/consul/server3:/data/consul'
+      - './config/consul/server.json:/etc/consul.d/consul.json'
+    command: 'consul agent --config-dir /etc/consul.d/'
+    container_name: 'consul-server3'
+    privileged: true
+  consul-client: 
+    build:
+      dockerfile: Dockerfile-consul
+      context: .
+    image: consul
+    volumes:
+      - './config/consul/client.json:/etc/consul.d/client.json'
+    command: 'consul agent  --log-level DEBUG --config-file /etc/consul.d/client.json'
+    container_name: 'consul-client'
+    ports:
+      - '8500:8500'
+  nomad-server1: 
+    build:
+      dockerfile: Dockerfile-nomad
+      context: .
+    image: nomad
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock'
+      # - './data/server1:/export/nomad-data'
+      - './config/nomad/server.hcl:/etc/nomad.d/nomad.hcl'
+    command: 'nomad agent -config /etc/nomad.d'
+    container_name: 'nomad-server1'
+    privileged: true
+  nomad-server2: 
+    build:
+      dockerfile: Dockerfile-nomad
+      context: .
+    image: nomad
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock'
+      # - './data/server2:/export/nomad-data'
+      - './config/nomad/server.hcl:/etc/nomad.d/nomad.hcl'
+    command: 'nomad agent -config /etc/nomad.d'
+    container_name: 'nomad-server2'
+    privileged: true
+  nomad-server3: 
+    build:
+      dockerfile: Dockerfile-nomad
+      context: .
+    image: nomad
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock'
+      # - './data/server3:/export/nomad-data'
+      - './config/nomad/server.hcl:/etc/nomad.d/nomad.hcl'
+    command: 'nomad agent -config /etc/nomad.d'
+    container_name: 'nomad-server3'
+    privileged: true
+  nomad-client: 
+    build:
+      dockerfile: Dockerfile-nomad
+      context: .
+    image: nomad
+    ports:
+      - '4646:4646'
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock'
+      - './config/nomad/client.hcl:/etc/nomad.d/nomad.hcl'
+    command: 'nomad agent -config /etc/nomad.d'
+    container_name: 'nomad-client'
+    privileged: true
